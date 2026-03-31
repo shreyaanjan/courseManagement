@@ -1,0 +1,193 @@
+<%- include('../partials/admin-start') %>
+
+    <style>
+        .form-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 2rem;
+        }
+
+        .form-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #000000;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .btn-submit {
+            background: #000000;
+            color: #ffffff;
+            border: 2px solid #000000;
+            padding: 0.875rem 3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #ffffff;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #666666;
+            border: 2px solid #e0e0e0;
+            padding: 0.875rem 3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-cancel:hover {
+            border-color: #000000;
+            color: #000000;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2px;
+        }
+
+        .form-hint {
+            font-size: 0.85rem;
+            color: #999999;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="form-card">
+        <h2 class="form-card-title">Edit Course</h2>
+
+        <form action="/admin/edit-course/<%= editCourse._id %>" method="POST">
+            <div class="form-group">
+                <label for="name" class="form-label">Course Name *</label>
+                <input type="text" value="<%- editCourse.name %>" class="form-control" id="name" name="name" placeholder="Web Development Bootcamp">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="category" class="form-label">Category *</label>
+                    <select class="form-control" id="category" name="category" required>
+                        <option> value="">Select Category</option>
+                        <option <%= editCourse.category == "Development" ? "selected" : "" %> value="Development">Development</option>
+                        <option <%= editCourse.category == "Design" ? "selected" : "" %> value="Design">Design</option>
+                        <option <%= editCourse.category == "Marketing" ? "selected" : "" %> value="Marketing">Marketing</option>
+                        <option <%= editCourse.category == "Business" ? "selected" : "" %> value="Business">Business</option>
+                        <option <%= editCourse.category == "IT & Software" ? "selected" : "" %> value="IT & Software">IT & Software</option>
+                        <option <%= editCourse.category == "Personal Development" ? "selected" : "" %> value="Personal Development">Personal Development</option>
+                        <option <%= editCourse.category == "Photography" ? "selected" : "" %> value="Photography">Photography</option>
+                        <option <%= editCourse.category == "Music" ? "selected" : "" %> value="Music">Music</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="level" class="form-label">Level *</label>
+                    <select class="form-control" id="level" name="level" required>
+                        <option value="">Select Level</option>
+                        <option <%= editCourse.level == "Beginner" ? "selected" : "" %> value="Beginner">Beginner</option>
+                        <option <%= editCourse.level == "Intermediate" ? "selected" : "" %> value="Intermediate">Intermediate</option>
+                        <option <%= editCourse.level == "Advanced" ? "selected" : "" %> value="Advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Course Details -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="duration" class="form-label">Duration (in months) *</label>
+                    <input type="number"  value="<%- editCourse.duration %>" class="form-control" id="duration" name="duration" placeholder="1month">
+                </div>
+
+                <div class="form-group">
+                    <label for="price" class="form-label">Price (₹) *</label>
+                    <input type="number"  value="<%- editCourse.price %>" class="form-control" id="price" name="price" placeholder="99">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="instructor" class="form-label">Instructor Name *</label>
+                    <input type="text"  value="<%- editCourse.instructor %>" class="form-control" id="instructor" name="instructor" placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="language" class="form-label">Language *</label>
+                    <select class="form-control" id="language" name="language" required>
+                        <option value="">Select Language</option>
+                        <option <%= editCourse.language == "English" ? "selected" : "" %> value="English">English</option>
+                        <option <%= editCourse.language == "Gujarati" ? "selected" : "" %> value="Gujarati">Gujarati</option>
+                        <option <%= editCourse.language == "Hindi" ? "selected" : "" %> value="Hindi">Hindi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Update Course</button>
+                <a href="/admin/" class="btn-cancel">Cancel</a>
+            </div>
+    </div>
+
+    <!-- Form Actions -->
+
+    </form>
+    </div>
+
+    <%- include('../partials/admin-end') %>

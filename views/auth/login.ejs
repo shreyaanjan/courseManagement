@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Course Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .login-wrapper {
+            display: flex;
+            height: 100vh;
+        }
+        .left-panel {
+            flex: 1;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+        .login-form-container {
+            width: 100%;
+            max-width: 450px;
+        }
+        .logo-left {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: #000000;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo-left i {
+            font-size: 2rem;
+        }
+        .form-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #000000;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-control {
+            border: none;
+            border-bottom: 2px solid #e0e0e0;
+            border-radius: 0;
+            padding: 1rem 0.5rem 1rem 2.5rem;
+            font-size: 1rem;
+            background: transparent;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            border-bottom-color: #000000;
+            box-shadow: none;
+            outline: none;
+            background: transparent;
+        }
+        .form-control::placeholder {
+            color: #999999;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-icon {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666666;
+            font-size: 1.1rem;
+        }
+        .btn-login {
+            background: #000000;
+            border: 2px solid #000000;
+            color: #ffffff;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-login:hover {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+        .forgot-password {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .forgot-password a {
+            color: #666666;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .forgot-password a:hover {
+            color: #000000;
+        }
+        .right-panel {
+            flex: 1;
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .right-panel::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -100px;
+            left: -100px;
+        }
+        .right-panel::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            bottom: -50px;
+            right: -50px;
+        }
+        .welcome-content {
+            text-align: center;
+            color: #ffffff;
+            z-index: 1;
+        }
+        .welcome-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .welcome-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+        .btn-signup {
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 0.875rem 3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-signup:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+        @media (max-width: 768px) {
+            .login-wrapper {
+                flex-direction: column;
+            }
+            .left-panel {
+                padding: 2rem;
+                order: 2;
+            }
+            .right-panel {
+                padding: 2rem;
+                min-height: 40vh;
+                order: 1;
+            }
+            .welcome-content h1 {
+                font-size: 2rem;
+            }
+            .form-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="left-panel">
+            <div class="logo-left">
+                <i class="bi bi-mortarboard-fill"></i>
+                <span>CourseHub</span>
+            </div>
+            <div class="login-form-container">
+                <h2 class="form-title">Sign In</h2>
+                
+                <form action="/auth/login" method="POST" id="loginForm">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="bi bi-envelope input-icon"></i>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   placeholder="Email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="bi bi-lock input-icon"></i>
+                            <input type="password" class="form-control" id="password" name="password" 
+                                   placeholder="Password" required>
+                        </div>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#">Forgot your password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-login w-100">Sign In</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="welcome-content">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and<br>start your journey with us</p>
+                <a href="/auth/register" class="btn-signup">SIGN UP</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

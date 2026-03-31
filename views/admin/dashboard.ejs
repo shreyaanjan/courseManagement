@@ -1,0 +1,212 @@
+<%- include('../partials/admin-start') %>
+
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .stat-card {
+        background: #ffffff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        transition: all 0.3s;
+    }
+    .stat-card:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    .stat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    .stat-icon.blue {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+    .stat-icon.green {
+        background: #e8f5e9;
+        color: #388e3c;
+    }
+    .stat-icon.orange {
+        background: #fff3e0;
+        color: #f57c00;
+    }
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 0.25rem;
+    }
+    .stat-label {
+        color: #666666;
+        font-size: 0.9rem;
+    }
+    
+    .card {
+        background: #ffffff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 2rem;
+    }
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f0f0f0;
+    }
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #000000;
+    }
+    .btn-add-course {
+        background: #000000;
+        color: #ffffff;
+        border: 2px solid #000000;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-add-course:hover {
+        background: #ffffff;
+        color: #000000;
+    }
+    
+    .course-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .course-table thead {
+        border-bottom: 2px solid #e0e0e0;
+    }
+    .course-table th {
+        padding: 0.75rem;
+        text-align: left;
+        font-weight: 600;
+        color: #666666;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+    }
+    .course-table td {
+        padding: 1rem 0.75rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .course-name {
+        font-weight: 600;
+        color: #000000;
+    }
+    .course-category {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: #f0f0f0;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        color: #666666;
+    }
+    .course-price {
+        font-weight: 600;
+        color: #000000;
+    }
+    .action-btn {
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        margin-right: 0.5rem;
+    }
+    .btn-edit {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+    .btn-edit:hover {
+        background: #1976d2;
+        color: #ffffff;
+    }
+    .btn-delete {
+        background: #ffebee;
+        color: #d32f2f;
+    }
+    .btn-delete:hover {
+        background: #d32f2f;
+        color: #ffffff;
+    }
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: #999999;
+    }
+    .empty-state i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+</style>
+
+<!-- Courses Table -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">All Courses</h3>
+        <a href="/admin/add-course" class="btn-add-course">
+            <i class="bi bi-plus-circle me-2"></i>Add New Course
+        </a>
+    </div>
+   
+        <table class="course-table">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Category</th>
+                    <th>Level</th>
+                    <th>Duration</th>
+                    <th>Price</th>
+                    <th>Instructor</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% allCourse.map(course => { %>
+                    <tr>
+                        <td class="course-name"><%= course.name %></td>
+                        <td><span class="course-category"><%= course.category %></span></td>
+                        <td><%= course.level %></td>
+                        <td><%= course.duration %> days</td>
+                        <td class="course-price">₹<%= course.price %></td>
+                        <td><%= course.instructor %></td>
+                        <td>
+                            <a href="/admin/edit-course/<%= course._id %>" class="action-btn btn-edit">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a href="/admin/delete-course/<%= course._id %>" class="action-btn btn-delete" 
+                               onclick="return confirm('Are you sure you want to delete this course?')">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+</div>
+
+<%- include('../partials/admin-end') %>

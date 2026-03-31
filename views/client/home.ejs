@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseHub - Learn & Grow</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #000000;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: #ffffff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000000 !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .navbar-brand i {
+            font-size: 2rem;
+        }
+        .nav-link {
+            color: #000000 !important;
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: all 0.3s;
+        }
+        .nav-link:hover {
+            color: #666666 !important;
+        }
+        .btn-login {
+            background: transparent;
+            border: 2px solid #000000;
+            color: #000000;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+            margin-right: 0.5rem;
+        }
+        .btn-login:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: #000000;
+            color: #ffffff;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .btn-explore {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #ffffff;
+            padding: 1rem 3rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        .btn-explore:hover {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            transform: translateY(-3px);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: #f8f9fa;
+            padding: 3rem 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #000000;
+        }
+        .stat-label {
+            font-size: 1rem;
+            color: #666666;
+            margin-top: 0.5rem;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 5rem 0;
+            background: #ffffff;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: #000000;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s;
+        }
+        .feature-card:hover .feature-icon {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .feature-description {
+            color: #666666;
+            line-height: 1.6;
+        }
+        
+        /* Courses Section */
+        .courses-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+        .course-card {
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+        }
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .course-image {
+            width: 100%;
+            height: 200px;
+            background: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 3rem;
+        }
+        .course-content {
+            padding: 1.5rem;
+        }
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .course-description {
+            color: #666666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .course-duration {
+            color: #666666;
+            font-size: 0.9rem;
+        }
+        .btn-enroll {
+            background: #000000;
+            color: #ffffff;
+            border: 2px solid #000000;
+            padding: 0.75rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        .btn-enroll:hover {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: #000000;
+            color: #ffffff;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .cta-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        .btn-cta {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #ffffff;
+            padding: 1rem 3rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        .btn-cta:hover {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #ffffff;
+            padding: 3rem 0 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: #666666;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+        .footer-link:hover {
+            color: #000000;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-mortarboard-fill"></i>
+                CourseHub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#courses">Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/auth/login" class="btn btn-login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title">Learn Without Limits</h1>
+                    <p class="hero-subtitle">Discover thousands of courses and start your learning journey today. Build skills, advance your career, and achieve your goals.</p>
+                    <a href="#courses" class="btn btn-explore">Explore Courses</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Courses</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Students</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Instructors</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="about">
+        <div class="container">
+            <h2 class="section-title">Why Choose CourseHub?</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-book"></i>
+                        </div>
+                        <h3 class="feature-title">Quality Content</h3>
+                        <p class="feature-description">Access high-quality courses created by industry experts and experienced instructors.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <h3 class="feature-title">Learn Anytime</h3>
+                        <p class="feature-description">Study at your own pace with lifetime access to course materials and resources.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-award"></i>
+                        </div>
+                        <h3 class="feature-title">Get Certified</h3>
+                        <p class="feature-description">Earn certificates upon completion to showcase your skills and achievements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-section" id="courses">
+        <div class="container">
+            <h2 class="section-title">Popular Courses</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Web Development Bootcamp</h3>
+                            <p class="course-description">Master HTML, CSS, JavaScript, and modern frameworks to build stunning websites.</p>
+                            <div class="course-meta">
+                                <span class="course-price">$99</span>
+                                <span class="course-duration"><i class="bi bi-clock"></i> 40 hours</span>
+                            </div>
+                            <button class="btn btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <i class="bi bi-palette"></i>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">UI/UX Design Masterclass</h3>
+                            <p class="course-description">Learn design principles, user research, and create beautiful user interfaces.</p>
+                            <div class="course-meta">
+                                <span class="course-price">$89</span>
+                                <span class="course-duration"><i class="bi bi-clock"></i> 30 hours</span>
+                            </div>
+                            <button class="btn btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">Digital Marketing Pro</h3>
+                            <p class="course-description">Master SEO, social media marketing, and grow your online presence effectively.</p>
+                            <div class="course-meta">
+                                <span class="course-price">$79</span>
+                                <span class="course-duration"><i class="bi bi-clock"></i> 25 hours</span>
+                            </div>
+                            <button class="btn btn-enroll">Enroll Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Start Learning?</h2>
+            <p class="cta-subtitle">Join thousands of students and start your journey today</p>
+            <a href="/register" class="btn btn-cta">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="footer-title">CourseHub</h5>
+                    <p class="text-muted">Empowering learners worldwide with quality education and professional development.</p>
+                </div>
+                <div class="col-md-2">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <a href="#" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Courses</a>
+                    <a href="#" class="footer-link">Instructors</a>
+                    <a href="#" class="footer-link">Blog</a>
+                </div>
+                <div class="col-md-2">
+                    <h5 class="footer-title">Support</h5>
+                    <a href="#" class="footer-link">Help Center</a>
+                    <a href="#" class="footer-link">FAQs</a>
+                    <a href="#" class="footer-link">Contact</a>
+                    <a href="#" class="footer-link">Privacy</a>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="footer-title">Connect With Us</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-link"><i class="bi bi-facebook" style="font-size: 1.5rem;"></i></a>
+                        <a href="#" class="footer-link"><i class="bi bi-twitter" style="font-size: 1.5rem;"></i></a>
+                        <a href="#" class="footer-link"><i class="bi bi-instagram" style="font-size: 1.5rem;"></i></a>
+                        <a href="#" class="footer-link"><i class="bi bi-linkedin" style="font-size: 1.5rem;"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CourseHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
