@@ -19,7 +19,7 @@ app.use(cookieparser())
 
 app.use('/auth/', authRouter)
 app.use('/admin/', authMiddleware, adminRouter)
-app.use('/', authMiddleware, clientRouter)
+app.use('/', clientRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);

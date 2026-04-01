@@ -80,6 +80,71 @@
             position: relative;
             z-index: 1;
         }
+        .hero-image {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-illustration {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-illustration::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -50px;
+            right: -50px;
+        }
+        .hero-illustration::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            bottom: -30px;
+            left: -30px;
+        }
+        .hero-icon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .hero-icon-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        .hero-icon-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .hero-icon-item i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero-icon-item span {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
         .hero-title {
             font-size: 3.5rem;
             font-weight: 700;
@@ -105,7 +170,6 @@
             background: transparent;
             color: #ffffff;
             border: 2px solid #ffffff;
-            transform: translateY(-3px);
         }
         
         /* Stats Section */
@@ -144,9 +208,6 @@
             padding: 2rem;
             transition: all 0.3s;
         }
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
         .feature-icon {
             width: 80px;
             height: 80px;
@@ -164,6 +225,7 @@
             background: #ffffff;
             color: #000000;
             border: 2px solid #000000;
+            cursor: pointer;
         }
         .feature-title {
             font-size: 1.5rem;
@@ -189,7 +251,6 @@
             margin-bottom: 2rem;
         }
         .course-card:hover {
-            transform: translateY(-10px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         .course-image {
@@ -332,9 +393,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/auth/login" class="btn btn-login">Login</a>
-                    </li>
+                    <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn) { %>
+                        <li class="nav-item">
+                            <a href="/admin/" class="btn btn-login">Dashboard</a>
+                            <a href="/auth/logout" class="btn btn-login">Logout</a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a href="/auth/login" class="btn btn-login">Login</a>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
@@ -348,6 +416,28 @@
                     <h1 class="hero-title">Learn Without Limits</h1>
                     <p class="hero-subtitle">Discover thousands of courses and start your learning journey today. Build skills, advance your career, and achieve your goals.</p>
                     <a href="#courses" class="btn btn-explore">Explore Courses</a>
+                </div>
+                <div class="col-lg-6 hero-image">
+                    <div class="hero-illustration">
+                        <div class="hero-icon-grid">
+                            <div class="hero-icon-item">
+                                <i class="bi bi-laptop"></i>
+                                <span>Online Learning</span>
+                            </div>
+                            <div class="hero-icon-item">
+                                <i class="bi bi-trophy"></i>
+                                <span>Certificates</span>
+                            </div>
+                            <div class="hero-icon-item">
+                                <i class="bi bi-people"></i>
+                                <span>Expert Instructors</span>
+                            </div>
+                            <div class="hero-icon-item">
+                                <i class="bi bi-clock-history"></i>
+                                <span>Lifetime Access</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -435,7 +525,7 @@
                             <h3 class="course-title">Web Development Bootcamp</h3>
                             <p class="course-description">Master HTML, CSS, JavaScript, and modern frameworks to build stunning websites.</p>
                             <div class="course-meta">
-                                <span class="course-price">$99</span>
+                                <span class="course-price">₹900</span>
                                 <span class="course-duration"><i class="bi bi-clock"></i> 40 hours</span>
                             </div>
                             <button class="btn btn-enroll">Enroll Now</button>
@@ -451,7 +541,7 @@
                             <h3 class="course-title">UI/UX Design Masterclass</h3>
                             <p class="course-description">Learn design principles, user research, and create beautiful user interfaces.</p>
                             <div class="course-meta">
-                                <span class="course-price">$89</span>
+                                <span class="course-price">₹600</span>
                                 <span class="course-duration"><i class="bi bi-clock"></i> 30 hours</span>
                             </div>
                             <button class="btn btn-enroll">Enroll Now</button>
@@ -467,7 +557,7 @@
                             <h3 class="course-title">Digital Marketing Pro</h3>
                             <p class="course-description">Master SEO, social media marketing, and grow your online presence effectively.</p>
                             <div class="course-meta">
-                                <span class="course-price">$79</span>
+                                <span class="course-price">₹500</span>
                                 <span class="course-duration"><i class="bi bi-clock"></i> 25 hours</span>
                             </div>
                             <button class="btn btn-enroll">Enroll Now</button>
@@ -520,7 +610,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 CourseHub. All rights reserved.</p>
+                <p>&copy; 2026 CourseHub. All rights reserved.</p>
             </div>
         </div>
     </footer>

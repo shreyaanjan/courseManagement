@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         const allCourse = await Course.find({})
 
         return res.render('admin/dashboard', {
-            user, allCourse
+            user, allCourse, activePage: 'dashboard'
         })
     } catch (error) {
         console.log(error)
@@ -20,7 +20,9 @@ router.get('/', async (req, res) => {
 
 router.get('/add-course', (req, res) => {
     try {
-        return res.render('admin/addCourse')
+        return res.render('admin/addCourse', {
+            activePage: 'add-course'
+        })
     } catch (error) {
         console.log(error)
     }
