@@ -1,0 +1,75 @@
+import User from "../model/UserModel.js"
+import Course from "../model/CourseModel.js"
+
+const dashboard = async (req, res) => {
+    try {
+        const { id } = req.user
+
+        const user = await User.findById(id).select('-password -createdAt -updatedAt')
+        const allCourse = await Course.find({})
+
+        return res.render('admin/dashboard', {
+            user, allCourse, activePage: 'dashboard'
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getAddCoursePage = (req, res) => {
+    try {
+        return res.render('admin/addCourse', {
+            activePage: 'add-course'
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const addCourse = async (req, res) => {
+    try {
+        const data = req.body
+        const newData = new Course(data)
+        await newData.save()
+        return res.redirect('/admin')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const deleteCourse = async (req, res) => {
+    try {
+        const { id } = req.params
+        await Course.findByIdAndDelete(id)
+        return res.redirect('/admin')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const editCourse = async (req, res) => {
+    try {
+        const { id } = req.params
+        const editCourse = await Course.findById(id)
+
+        return res.render('admin/editCourse', {
+            editCourse
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const updateCourse = async (req, res) => {
+    try {
+        const { id } = req.params
+        const updatedData = req.body
+
+        await Course.findByIdAndUpdate(id, updatedData)
+        return res.redirect('/admin')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export { dashboard, getAddCoursePage, addCourse, deleteCourse, editCourse, updateCourse }
